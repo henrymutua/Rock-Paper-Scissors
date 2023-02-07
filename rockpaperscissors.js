@@ -4,8 +4,7 @@ const getComputerChoice = () =>{
 }
 
 const playRound = (playerSelection, computerSelection) => {
-    computerSelection = getComputerChoice();
-   playerSelection = prompt('Please enter something!')
+    
 if (playerSelection == 'rock' && computerSelection == 'scissors'){
     return('You win! rock beats scissors!')
 }
@@ -25,10 +24,26 @@ else if(playerSelection == 'scissors' && computerSelection == 'paper'){
     return('You win! Scissors beats paper')
 }
 }
+computerSelection = getComputerChoice();
+   playerSelection = prompt('Please enter something!')
 const savePlayRound = playRound();
 console.log(savePlayRound);
-const game = () => {
-    for( let i=1; i<=5; i++){
-        return(playRound())
-    }
-}
+
+
+const button1 = document.getElementById('1');
+
+button1.addEventListener('click', savePlayRound => {
+    
+} 
+
+
+)
+
+
+
+
+
+
+
+
+
