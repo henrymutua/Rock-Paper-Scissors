@@ -1,49 +1,78 @@
-const getComputerChoice = () =>{
-    let someArray = ['rock', 'paper', 'scissors'];
-    return someArray[Math.floor(Math.random()*someArray.length)];
+const choices = ["rock", "paper", "scissors"];
+let winners = [];
+
+function game() {
+  for (let i = 1; i <= 5; i++) {
+    playRound(i);
+  }
+  document.querySelector("button").textContent = "Play new game";
+  logWins();
 }
 
-const playRound = (playerSelection, computerSelection) => {
-    
-if (playerSelection == 'rock' && computerSelection == 'scissors'){
-    return('You win! rock beats scissors!')
+function playRound(round) {
+  const playerSelection = playerChoice();
+  const computerSelection = computerChoice();
+  const winner = checkWinner(playerSelection, computerSelection);
+  winners.push(winner);
+  logRound(playerSelection, computerSelection, winner, round);
 }
-else if(playerSelection == 'rock' && computerSelection == 'paper'){
-    return('You lose. Paper beats rock!')
+
+function playerChoice() {
+  let input = prompt("Type Rock, Paper, or Scissors");
+  while (input == null) {
+    input = prompt("Type Rock, Paper, or Scissors");
+  }
+  input = input.toLowerCase();
+  let check = validateInput(input);
+  while (check == false) {
+    input = prompt(
+      "Type Rock, Paper, or Scissors. Spelling needs to be exact, but capitilization doesnt matter"
+    );
+    while (input == null) {
+      input = prompt("Type Rock, Paper, or Scissors");
+    }
+    input = input.toLowerCase();
+    check = validateInput(input);
+  }
+  return input;
 }
-else if(playerSelection == 'scissors' && computerSelection == 'rock'){
-    return('You lose! Rock beats scissors')
+
+function computerChoice() {
+  return choices[Math.floor(Math.random() * choices.length)];
 }
-else if(playerSelection == 'paper' && computerSelection == 'rock'){
-    return('You win! Paper beats rock')
+
+function validateInput(choice) {
+  return choices.includes(choice);
 }
-else if(playerSelection == 'paper' && computerSelection == 'scissors'){
-    return('You lose! Scissors beats paper!')
+
+function checkWinner(choiceP, choiceC) {
+  if (choiceP === choiceC) {
+    return "Tie";
+  } else if (
+    (choiceP === "rock" && choiceC == "scissors") ||
+    (choiceP === "paper" && choiceC == "rock") ||
+    (choiceP === "scissors" && choiceC == "paper")
+  ) {
+    return "Player";
+  } else {
+    return "Computer";
+  }
 }
-else if(playerSelection == 'scissors' && computerSelection == 'paper'){
-    return('You win! Scissors beats paper')
+
+function logWins() {
+  let playerWins = winners.filter((item) => item == "Player").length;
+  let computerWins = winners.filter((item) => item == "Computer").length;
+  let ties = winners.filter((item) => item == "Tie").length;
+  console.log("Results:");
+  console.log("Player Wins:", playerWins);
+  console.log("Computer Wins:", computerWins);
+  console.log("Ties:", ties);
 }
+
+function logRound(playerChoice, computerChoice, winner, round) {
+  console.log("Round:", round);
+  console.log("Player Chose:", playerChoice);
+  console.log("Computer Chose:", computerChoice);
+  console.log(winner, "Won the Round");
+  console.log("-------------------------------");
 }
-computerSelection = getComputerChoice();
-   playerSelection = prompt('Please enter something!')
-const savePlayRound = playRound();
-console.log(savePlayRound);
-
-
-const button1 = document.getElementById('1');
-
-button1.addEventListener('click', savePlayRound => {
-    
-} 
-
-
-)
-
-
-
-
-
-
-
-
-
